@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VENDOR=huawei
-DEVICE=cherry
+DEVICE=hwt1a21l
 
 OUTDIR=vendor/$VENDOR/$DEVICE
 MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
@@ -129,7 +129,7 @@ EOF
 
 LOCAL_PATH := \$(call my-dir)
 
-ifeq (\$(TARGET_DEVICE),cherry)
+ifeq (\$(TARGET_DEVICE),hwt1a21l)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := com.qualcomm.location

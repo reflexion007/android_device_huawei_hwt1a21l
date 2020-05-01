@@ -17,10 +17,10 @@
 # Product-specific compile-time definitions.
 #
 
-LOCAL_PATH := device/huawei/cherry
+LOCAL_PATH := device/huawei/hwt1a21l
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := c8817d,g620s,cherry,CHERRY,C8817D,C8817E,G621-TL00,G620S-UL00,G620S-L01,Che1-CL20,Che1-CL10,Che1-L04
+TARGET_OTA_ASSERT_DEVICE := hwt1a21l
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8916
@@ -69,7 +69,7 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_SHOW_PERCENTAGE := true
 
 # CMHW
-BOARD_HARDWARE_CLASS := device/huawei/cherry/cmhw
+BOARD_HARDWARE_CLASS := device/huawei/hwt1a21l/cmhw
 
 # Enables CSVT
 TARGET_USES_CSVT := true
@@ -155,7 +155,7 @@ PROTOBUF_SUPPORTED := true
 include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += \
-    device/huawei/cherry/sepolicy
+    device/huawei/hwt1a21l/sepolicy
 
 BOARD_SEPOLICY_UNION += \
     bootanim.te \
@@ -193,4 +193,4 @@ WIFI_DRIVER_FW_PATH_STA := "sta"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # inherit from the proprietary version
--include vendor/huawei/cherry/BoardConfigVendor.mk
+-include vendor/huawei/hwt1a21l/BoardConfigVendor.mk

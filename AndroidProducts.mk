@@ -14,4 +14,5 @@
 # limitations under the License.
 
 PRODUCT_MAKEFILES := \
-	$(LOCAL_DIR)/msm8916_32.mk
+#	$(LOCAL_DIR)/msm8916_32.mk
+        $(LOCAL_DIR)/cm.mk

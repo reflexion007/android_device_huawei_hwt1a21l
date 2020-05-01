@@ -19,4 +19,3 @@ Rear Camera  | 5.0 MP, LED flash
 Front Camera | 2.0 MP
 Release Date | April 2015 
 
-![Huawei Honor 4X](https://wiki.cyanogenmod.org/images/thumb/2/20/Cherry.png/314px-Cherry.png "Huawei Honor 4X")
