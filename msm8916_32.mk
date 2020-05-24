@@ -269,4 +269,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
     sys.io.scheduler=bfq
 
 # Inherit proprietary blobs
-$(call inherit-product-if-exists, vendor/huawei/cherry/cherry-vendor.mk)
+$(call inherit-product-if-exists, vendor/huawei/hwt1a21l/hwt1a21l-vendor.mk)
