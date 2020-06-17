@@ -19,6 +19,10 @@ DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
+# Temporary use with prebuilt kernel only
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/kernel:kernel
+
 # media_profiles and media_codecs xmls for 8916
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
@@ -91,6 +95,7 @@ PRODUCT_COPY_FILES += \
     kernel/huawei/msm8916/drivers/staging/prima/firmware_bin/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
     $(LOCAL_PATH)/WCNSS_wlan_dictionary.dat:system/etc/wifi/WCNSS_wlan_dictionary.dat \
     $(LOCAL_PATH)/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin
+
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
@@ -173,7 +178,8 @@ PRODUCT_PACKAGES += \
     ueventd.qcom.rc \
     fstab.qcom \
     init.qcom.zram.sh \
-    init.qcom.bms.sh
+    init.qcom.bms.sh \
+    init.hwt1a21l.rc
 
 # IPv6
 PRODUCT_PACKAGES += \

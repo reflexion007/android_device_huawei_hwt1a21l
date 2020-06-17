@@ -1,0 +1,485 @@
+This file includes the delta of definitions from stock init.rc
+of hwt1a21l against CM 12.1 build.
+
+on init
+# /* < DTS2012073102596 yangjunjian 00179471 20120801 begin */
+# /* < DTS2012080400788 wanggang 180790 20120806 begin */
+    export LD_LIBRARY_PATH /vendor/lib:/data/cust/lib:/system/lib:/data/datalib
+# /* DTS2012080400788 wanggang 180790 20120806 end >*/
+# /* DTS2012073102596 yangjunjian 00179471 20120801 end >*/
+
+    mkdir /cust 
+
+# Create cgroup mount point for freezer
+    mkdir /dev/frz
+    mount cgroup none /dev/frz freezer
+
+
+    write /proc/sys/kernel/dmesg_restrict 1
+
+
+	#smart pa
+    chmod 0660 /dev/i2c-6
+    chown media media /dev/i2c-6
+	#smart pa
+
+
+on post-fs
+    # This may have been created by the recovery system with the wrong context.
+    restorecon /cache/recovery
+
+    # Create log dir to collect logs.
+    mkdir /data/log 0751 system system
+    mkdir /data/log/android_logs 0755 system system
+    #  /* < DTS2014062302160 liuzhefeng 20140626 begin */
+    mkdir /data/log/fac_log 0755 system system
+    #  /* DTS2014062302160 liuzhefeng 20140626 end > */
+    # /* < DTS2014062304718 asihan 84018605 20140623 begin */
+    mkdir /data/log/rt 0755 system system
+
+    mkdir /data/log/rt/PostRT 0755 system system
+
+    mkdir /data/log/mmi 0755 system system
+    # /* DTS2014062304718 asihan 84018605 20140623 end > */
+
+    mkdir /data/log/sleeplog 0755 system system
+    mkdir /data/log/sleeplog/powerlog 0755 system system
+    mkdir /data/log/tp_cap 0755 system system
+    chown system system /data/log/tp_cap
+
+
+    mkdir /data/misc/wifi/load 0775 system system
+
+
+    mkdir /cache/huawei_ota 0775 system system
+    mkdir /cache/huawei_ota/tmp 0775 system system
+    chown system system /cache/huawei_ota
+    chown system system /cache/huawei_ota/tmp
+    chmod 0775 /cache/huawei_ota
+    mkdir /cache/fotapkg 0775 system system
+    chown system system /cache/fotapkg
+    chmod 0775 /cache/fotapkg
+
+
+    # DTS2013112400485 tiandazhang/00107790 20131125 begin
+    mkdir /data/drm/rights 0770 drm drm
+    # DTS2013112400485 tiandazhang/00107790 20131125 end
+    #/* <DTS2012080201243 tiandazhang 20120802 begin */
+    mkdir /data/drm/widevine 0770 drm drm
+    #/* DTS2012080201243 tiandazhang 20120802 end> */
+
+
+    # DTS2014081000069 wangyong/00205756 20140811 begin sync DTS2013082803931
+    mkdir /data/midi
+    chmod 0770 /data/midi
+    chown media audio /data/midi
+    # DTS2014081000069 wangyong/00205756 20140811 end
+
+
+#/* < DTS2014061400183 jingbing 20140614 start */
+	sys_wp_init_action
+#/* DTS2014061400183 jingbing 20140614 end > */
+#/* <DTS2013012502107 liutie/00176215 20130125 begin*/
+    custsymlink delapp /data/cust/delapp
+#/* DTS2013012502107 liutie/00176215 20130125 end> */
+
+    #<DTS2015010702694 qiaopuyao 20150119 begin
+    chown system system /dev/equip
+    chmod 0770 /dev/equip
+    #DTS2015010702694 qiaopuyao 20150119 end
+    
+
+on boot
+
+    write /proc/sys/vm/page-cluster 0
+	
+
+    chown system system /sys/devices/12c.hw-dev-detect/dev_flag
+    chown system system /sys/touch_screen/touch_mmi_test
+    chown system system /sys/touch_screen/touch_calibration
+    chown system system /sys/touch_screen/synaptics_mmi_test_result
+    chown system system /sys/touch_screen/synaptics_mmi_test
+    chown system system /sys/touch_screen/holster_touch_window
+    chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/signal_disparity
+    chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/finger_threshold 
+    chown system system /sys/touch_screen/glove_func/signal_disparity
+    chown system system /sys/touch_screen/glove_func/holster_sensitivity
+    chown system system /sys/touch_screen/glove_func/finger_threshold 
+    chown system system /sys/touch_screen/easy_wakeup_gesture
+    chown system system /sys/touch_screen/easy_wakeup_supported_gestures
+    chown system system /sys/touch_screen/easy_wakeup_position
+    chown system system /sys/touch_screen/openshort
+
+
+    chown root system /sys/class/power_supply/battery/charging_enabled
+    chown root system /sys/module/qpnp_linear_charger/parameters/charge_no_limit
+    chmod 0664 /sys/class/power_supply/battery/charging_enabled
+    chown system system /sys/class/power_supply/battery/factory_diag
+    chown system system /sys/class/power_supply/battery/hot_current_limit
+    chown system system /sys/class/power_supply/battery/input_current_max
+
+
+    chown system system /sys/devices/8789.huawei_hall_sensor/enable_hall_sensor
+    chown root system /sys/devices/soc0/huawei_product
+
+
+    chown system system /sys/class/graphics/fb0/mipi_crc
+#/* < DTS2014102207427 zhoujian 20141023 begin */
+    chown system system /sys/class/graphics/fb0/inversion_mode
+    chown system system /sys/class/graphics/fb0/panel_status
+#/* DTS2014102207427 zhoujian 20141023 end > */
+
+
+    chown system system /sys/module/apds993x_ls/parameters/apds993x_debug
+    chmod 0664 /sys/module/apds993x_ls/parameters/apds993x_debug
+    chown system system /sys/module/kionix_accel/parameters/kx023_debug
+    chmod 0664 /sys/module/kionix_accel/parameters/kx023_debug
+    chown system system /sys/module/lis3dh_acc/parameters/lis3dh_debug
+    chmod 0664 /sys/module/lis3dh_acc/parameters/lis3dh_debug
+
+# Set these so we can remotely update SELinux policy
+    chown system system /sys/fs/selinux/load
+    chown system system /sys/fs/selinux/enforce
+
+    chown system system /sys/touch_screen/cyttsp5/command
+    chown system system /sys/touch_screen/cyttsp5/status
+    chown system system /sys/touch_screen/cyttsp5/response
+    chown system system /sys/touch_screen/cyttsp5/drv_debug
+  
+  #/* < DTS2015110409266  chendong wx241705 begin */
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_calibration
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_raw_data
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_update_config
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_enable
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_device_name
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_filp 
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_status
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_vendor
+   chown system system  /sys/bus/i2c/devices/0-002c/saronline
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_proxy_time
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_update_calib 
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_calib_target
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_threshold 
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_intr_error 
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_send_event
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_prox_status
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_reg_write
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_proxy_enable
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_force_calib
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_sw_reset
+   chown system system  /sys/bus/i2c/devices/0-002c/adux1050_reg_read
+
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_calibration
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_raw_data
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_update_config
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_enable
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_device_name
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_filp 
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_status
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_vendor
+   chmod 0664  /sys/bus/i2c/devices/0-002c/saronline
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_proxy_time
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_update_calib 
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_calib_target
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_threshold 
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_intr_error 
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_send_event
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_prox_status
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_reg_write
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_proxy_enable
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_force_calib
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_sw_reset
+   chmod 0664  /sys/bus/i2c/devices/0-002c/adux1050_reg_read
+   #/* DTS2015110409266  chendong wx241705 end > */
+
+# Define TCP buffer sizes for various networks
+#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+    setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.wifi    524288,1048576,2097152,262144,524288,1048576
+    setprop net.tcp.buffersize.lte     524288,1048576,2097152,262144,524288,1048576
+    setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.hspa    4094,87380,262144,4096,16384,262144
+    setprop net.tcp.buffersize.hsupa   4094,87380,262144,4096,16384,262144
+    setprop net.tcp.buffersize.hsdpa   4094,87380,262144,4096,16384,262144
+    setprop net.tcp.buffersize.hspap   4094,87380,1220608,4096,16384,1220608
+    setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
+    setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
+    setprop net.tcp.buffersize.evdo    4094,87380,262144,4096,16384,262144
+
+
+on property:vold.decrypt=trigger_shutdown_framework
+#/* < DTS2014122908697 lvxinkai/wx270663 20141229 begin */ 
+setprop persist.sys.huawei.debug.on 0
+#/* < DTS2014122908697 lvxinkai/wx270663 20141229 end */
+
+
+#/* < DTS2014071201040 wuzhen/00213434 yuanxiaofeng/278246 20140711 begin */
+on property:ro.build.hide="true"
+    write /proc/sys/kernel/hide_info 1
+on property:ro.build.hide="false"
+    write /proc/sys/kernel/hide_info 0
+#/* DTS2014071201040 wuzhen/00213434 yuanxiaofeng/278246 20140711 end > */
+
+
+service healthd-charger /sbin/healthd -n
+    class charger
+    critical
+    seclabel u:r:healthd:s0
+
+on property:selinux.reload_policy=1
+    restart ueventd
+    restart installd
+
+on property:ro.debuggable=1
+    #/* <DTS2013102503929 wangyandong/00110366 20131025 begin */
+    setprop ro.anr.warning.enable true
+    #/* <DTS2013102503929 wangyandong/00110366 20131025 end */
+
+
+#/* < DTS2014070713706  liulong 20140710 begin */
+service callife /system/bin/callife
+    class core
+    user system
+    group system
+#/*  DTS2014070713706  liulong 20140710 end >*/
+
+
+service servicemanager /system/bin/servicemanager
+    #/*< DTS2014011604442 yinlifeng/wx203042 20140116 begin */
+    onrestart restart keystore
+    #/* DTS2014011604442 yinlifeng/wx203042 20140116 end >*/
+
+
+#/* < DTS2015010902064 shangxiaofang 20150209 begin */
+service systeminfo /system/bin/systeminfo
+    class main
+    user root
+    oneshot
+#/* DTS2015010902064 shangxiaofang 20150209 end > */
+
+service ioinfoservice /system/bin/ioinfoservice
+    class main
+
+service jankservice /system/bin/jankservice
+    disabled
+    class main
+
+on property:sys.config.jankenable=true
+    start jankservice
+
+on property:init.svc.applogcat=running
+    setprop sys.config.jankenable  true
+
+# DTS2014052901268 g00174749 add for cgroup begin
+service mc-manager /system/bin/mc-manager
+    class main
+    user root
+    oneshot
+# DTS2014052901268 g00174749 delete for cgroup end
+
+service ddrtest /system/bin/do_ddrtest
+    user root
+    disabled
+    oneshot
+
+service stop_ddrtest /system/bin/do_ddrtest
+    user root
+    disabled
+    oneshot
+
+on property:debug.rt.ddr.test=1
+    stop ddrtest
+    start ddrtest
+on property:debug.rt.ddr.test=2
+    start ddrtest
+on property:debug.rt.ddr.test=3
+    start ddrtest
+on property:debug.rt.ddr.test=4
+    start stop_ddrtest
+
+service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
+    class main
+    socket zygote stream 660 root system
+    onrestart write /sys/android_power/request_state wake
+    onrestart write /sys/power/state on
+    onrestart restart media
+    onrestart restart netd
+#/* < DTS2014042500397 shiguojun 20140425 begin */
+    emergency
+#/* DTS2014042500397 shiguojun 20140425 end > */
+
+
+#/*< DTS2013050204471 liutie/00176215 20130503 begin */
+#/*< DTS2011072105626 libeibei 20110721 begin */
+service filebackup /system/bin/filebackup
+    class main
+    socket filebackup stream 0600 radio system
+#/* DTS2011072105626 libeibei 20110721 end >*/
+#/* DTS2013050204471 liutie/00176215 20130503 end >*/
+#/*< DTS2014070104095 huangwen/00181596 20140702 begin */
+# DTS2014071003757 wangyong/00205756 20140728 begin  sync DTS2014070904550
+
+
+#/*<DTS2013121804944 liutie/00176215 20131218 begin*/
+service bootanim_fast /system/bin/bootanimationex
+    class main
+    user system
+    group graphics audio
+    disabled
+    oneshot
+#/*DTS2013121804944 liutie/00176215 20131218 end>*/
+
+service gps_check /system/bin/gps_check
+    class main
+    user root
+    group root
+    oneshot
+
+
+#/*<DTS2014041105767 yedapeng 20140401 begin */
+service oeminfo_server /system/bin/oeminfo_server
+    class core
+    user root
+
+service rmt_oeminfo /sbin/rmt_oeminfo
+    class core
+    user root
+service usb_update /sbin/usb_update
+    class core
+    user root
+#/*DTS2014041105767 yedapeng 20140401 end>*/
+service sshd /system/bin/start-ssh
+    class main
+    disabled
+
+
+#/* < DTS2014120308190  hwx239867 20141208 add begin */
+service mac_detect /system/bin/mac_detect
+    class main
+    user root
+    group root
+    oneshot
+#/* < DTS2014120308190  hwx239867 20141208 add end */
+service libqmi_oem_main /sbin/libqmi_oem_main
+    class main
+
+service rebootmgr /system/bin/rebootmgr
+    class core
+    oneshot
+service test_diag /sbin/test_diag
+    user root
+    disabled
+
+service wifi_aging /system/xbin/wifi_aging
+    user root
+    disabled
+    oneshot
+
+service wifi_power_off /system/xbin/wifi_power_off
+    user root
+    disabled
+    oneshot
+
+service wlan_detect /system/bin/wlan_detect
+    class main
+    user root
+    group root
+    oneshot
+
+service BtWiRfServer /system/xbin/RfTest
+    user root
+    group bluetooth net_bt_admin system
+    disabled
+    oneshot
+
+service bt_aging /system/xbin/bt_aging
+    user root
+    group bluetooth net_bt_admin system
+    disabled
+    oneshot
+
+service bt_power_off /system/xbin/bt_power_off
+    user root
+    group bluetooth net_bt_admin system
+    disabled
+    oneshot
+
+service huawei_version /sbin/huawei_version
+    class core
+    user root
+    oneshot
+
+service oem_sar_main /system/bin/oem_sar_main
+    class core
+    user root
+
+service send_data_srv /system/bin/send_data_srv
+    class core
+    user system
+    group system
+    disabled
+    oneshot
+
+on property:ro.runmode=factory
+    start send_data_srv
+
+service enable_swap /system/bin/enable_swap
+    class main
+    user root
+    group root
+    oneshot
+#/*DTS2014091301574,begin:rm linear charger, 2014.9.30*/
+service chargelog  /sbin/chargelog.sh 19 51200
+#/*DTS2014091301574,end:rm linear charger, 2014.9.30*/
+    class main
+    root charger
+
+service nfc_detect /system/bin/nfc_detect
+    class main
+    user root
+    group root
+    oneshot
+
+# for hwnff
+service hwnffserver /system/bin/hwnffserver
+    class core
+    oneshot
+
+# DTS2015010901211 r00176482 20150113 begin
+service hwpged /system/bin/hwpged
+    class main
+    socket MsgHubSock stream 0660 root system
+    user root
+# DTS2015010901211 r00176482 20150113 end
+          
+#/*< DTS2014071406225 yangpanfei 20140809 begin*/
+service check_root /system/bin/check_root 
+    user root   
+    group radio system  
+    oneshot  
+    disabled  
+
+on property:sys.boot_completed=1  
+    start check_root  
+#/*DTS2014071406225 yangpanfei 20140809 end >*/
+
+# add service to ota error log
+service ota_log /system/bin/ota_log 300
+    user shell
+    group log
+    class main
+    oneshot
+    enable
+
+on property:hw.accel.calib="true"
+    chmod 0664 /dev/input/event0
+    chmod 0664 /dev/input/event1
+    chmod 0664 /dev/input/event2
+    chmod 0664 /dev/input/event3
+    chmod 0664 /dev/input/event4
+    chmod 0664 /dev/input/event5
+    chmod 0664 /dev/input/event6
+    chmod 0664 /dev/input/event7
+    chmod 0664 /dev/input/event8
+    chmod 0664 /dev/input/event9
+

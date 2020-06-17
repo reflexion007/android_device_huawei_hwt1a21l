@@ -112,10 +112,20 @@ BOARD_KERNEL_BASE        := 0x80000000
 BOARD_KERNEL_PAGESIZE    := 2048
 BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET     := 0x02000000
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=30 msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=30 msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 android.selinux=permissive
 BOARD_KERNEL_SEPARATED_DT := true
+BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x00008000 --tags_offset 0x00008100 --dt $(LOCAL_PATH)/dt.img
+
+#TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel
+# If using a prebuilt kernel, it is stored here.
+
 TARGET_KERNEL_SOURCE := kernel/huawei/msm8916
+# This defines the location of kernel sources.
+
 TARGET_KERNEL_CONFIG := cyanogenmod_cherry_defconfig
+# This variable defines the configuration how to build the kernel.
+# defconfig file can be found inside target_kernel_source/arch/arm/configs/
+
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
 
 # Lights
@@ -129,10 +139,10 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_BOOTIMAGE_PARTITION_SIZE := 0x01400000 # (20M)
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x01900000 # (25M)
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1288491008
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 1860648960
+BOARD_BOOTIMAGE_PARTITION_SIZE := 20971520 # (20M)
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 25165824 # (25M)
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1879048192
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 12329139200
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
